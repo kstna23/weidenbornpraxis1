@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>Über uns – WEIDENBORNpraxis</title>
+  <meta name="description" content="WEIDENBORNpraxis – Ihre Hausarztpraxis in Frankfurt. Kompetenz, Zeit und Herz für Ihre Gesundheit.">
+  <meta name="keywords" content="Hausarzt, Frankfurt, Allgemeinmedizin, Praxis, Ärzte, Gesundheit">
+  <meta name="author" content="WEIDENBORNpraxis">
+  <meta name="robots" content="index, follow">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-flex">
+    <div class="logo-block">
+      <h1 class="logo">WEIDENBORNpraxis</h1>
+      <p class="subtitle">Dr. Meissner &amp; Dr. Weck</p>
+    </div>
+    <button class="menu-toggle" aria-controls="hauptnav" aria-expanded="false" aria-label="Hauptmenü öffnen">☰</button>
+    <nav id="hauptnav" class="main-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Startseite</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="terminbuchung.html">Online-Termin</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main" id="hauptinhalt">
+  <div class="container">
+    
+    <h2>Über uns</h2>
+    <p>Die WEIDENBORNpraxis steht für ganzheitliche, patientenzentrierte Medizin. Unser Team begleitet Sie mit Empathie, Erfahrung und Fachwissen in allen Gesundheitsfragen.</p>
+    <h3>Standort</h3>
+    <p>Im Prüfling 61, 60389 Frankfurt am Main</p>
+    <iframe src="https://www.google.com/maps?q=Im+Pr%C3%BCfling+61,+60389+Frankfurt+am+Main&output=embed"
+      width="100%" height="400" style="border:0; border-radius: 10px;" allowfullscreen loading="lazy"></iframe>
+
+  </div>
+</main>
+<div class="hero-divider"></div>
+<div style="margin-bottom: 2rem;"></div>
+
+<footer class="site-footer">
+  <div class="container">
+    <img loading="lazy" alt="Praxislogo klein" class="footer-logo" src="images/footer.jpg"/>
+    <p>WEIDENBORNpraxis – Im Prüfling 61, 60389 Frankfurt am Main</p>
+  </div>
+</footer>
+<script>
+  (function(){
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.getElementById('hauptnav');
+    if (!btn || !nav) return;
+    function setState(open){
+      document.body.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Hauptmenü schließen' : 'Hauptmenü öffnen');
+    }
+    btn.addEventListener('click', function(){
+      setState(!document.body.classList.contains('menu-open'));
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')){
+        setState(false); btn.focus();
+      }
+    });
+    nav.addEventListener('click', function(e){
+      if (e.target.tagName === 'A'){ setState(false); }
+    });
+  })();
+</script>
+</body>
+</html>
