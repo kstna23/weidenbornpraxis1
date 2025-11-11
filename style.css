@@ -1,15 +1,15 @@
 /* ============================================
-   WEIDENBORNpraxis — Mobile-optimized style.css
+   WEIDENBORNpraxis — Style
    ============================================ */
 
 /* --- CSS Custom Properties (Theme) --- */
 :root {
   --bg: #F2E2D5;
-  --paper: #F2E2D5; 
-  --header-bg: #E0C4AF;     /* Header */
-  --footer-bg: #F2E2D5;     /* Footer */
+  --paper: #F2E2D5;
+  --header-bg: #F4D5BE;
+  --footer-bg: #F2E2D5;
   --ink: #8A322E;
-  --brand: #70201E; 
+  --brand: #70201E;
   --brand-dark: #70201E;
   --muted: #777;
   --radius: 0px;
@@ -22,6 +22,7 @@
 /* --- Base / Reset --- */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -31,7 +32,11 @@ body {
   line-height: 1.6;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 .container {
   width: min(90%, var(--container-max));
@@ -47,29 +52,40 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 1000;
 }
 
+/* Container im Header: über die gesamte Seitenbreite */
+.site-header .container {
+  width: 100%;
+  margin-inline: 0;
+}
+
 .header-flex {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: var(--header-pad-y) 0;
+  position: relative; /* Referenz für den Burger-Button */
 }
 
-.logo-block { flex: 1; text-align: center; }
+.logo-block {
+  flex: 1;
+  text-align: center; /* Logo + Unterzeile wieder mittig */
+}
 
 .logo {
   font-size: clamp(1.75rem, 4.2vw, 3rem);
-  font-weight: 300;
+  font-weight: 300; /* Basis: light */
   color: #000;
   margin: 0;
   letter-spacing: 0.5px;
-
-  .logo-bold {
-  font-weight: 600;   /* Semi Bold */
 }
 
-  .logo-light {
-  font-weight: 300;   /* Light */
+/* Teil-Logo: WEIDENBORN bold, praxis light */
+.logo-weidenborn {
+  font-weight: 600; /* semibold */
 }
+
+.logo-praxis {
+  font-weight: 300; /* light */
 }
 
 .subtitle {
@@ -80,38 +96,64 @@ img { max-width: 100%; height: auto; display: block; }
   text-align: center;
 }
 
-/* Primary nav (desktop default) */
-.main-nav {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 0 0.3rem;
-  font-size: 0.95rem;
-}
-
-.main-nav a {
-  color: var(--brand);
-  text-decoration: none;
-  font-weight: 400;
-  padding: 0.5rem 0.6rem;
-  border-radius: 6px;
-}
-.main-nav a:hover { text-decoration: underline; }
-
+/* Burger-Button: immer sichtbar, absolut am rechten Seitenrand des Headers */
 .menu-toggle {
-  display: none;
+  position: absolute;
+  right: 2.5rem;          /* jetzt wirklich an der rechten Kante */
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   font-size: 1.8rem;
   line-height: 1;
   color: var(--brand);
   cursor: pointer;
-  padding: 0.5rem 0.6rem;
-  margin-left: auto;
+  padding: 0;        /* kein extra Innenabstand */
 }
 
-/* --- Hero (volle Bildschirmbreite) --- */
+/* Side-Drawer Navigation: immer Burger-Menü, slidet von rechts herein */
+.main-nav {
+  position: fixed;
+  right: 0;
+  top: calc(var(--header-pad-y) * 2 + 52px); /* direkt unter dem Header */
+  background-color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  padding: 0.75rem 0.75rem 1rem;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.12);
+  border-bottom-left-radius: 14px;
+  width: min(70vw, 320px);
+  transform: translateX(100%);  /* zunächst rechts außerhalb */
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  z-index: 999;
+}
+
+/* geöffnetes Menü */
+body.menu-open .main-nav {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.main-nav a {
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 400;
+  padding: 0.8rem 0.9rem;
+  border-radius: 8px;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  background-color: rgba(0,0,0,0.05);
+  text-decoration: none;
+}
+
+/* --- Hero (Breite) --- */
 .hero {
   width: 100vw;
   margin: 0;
@@ -119,31 +161,42 @@ img { max-width: 100%; height: auto; display: block; }
   overflow: hidden;
 }
 
-/* --- Hero Image (zentriert, 70% Breite) --- */
+/* Hero-Bild zentriert, auf 70 % der Breite begrenzt */
 .hero img {
-  margin: 2rem auto;         /* zentriert das Bild */
-  width: 70%;                /* Begrenzung der Breite */
-  max-width: 1000px;         /* optional, verhindert zu große Darstellung auf großen Bildschirmen */
+  margin: 2rem auto;
+  width: 70%;
+  max-width: 1000px;
   height: auto;
   display: block;
-  border: none;
-  box-shadow: none;
 }
 
-
 /* --- Sections --- */
-.intro, .services, .about-us { padding: 3rem 1rem 2.5rem; }
-.intro h2, .services h2, .about-us h2 { color: var(--brand); font-size: clamp(1.5rem, 3.5vw, 2rem); text-align: center; }
-h2, h3 { color: var(--brand); }
+.intro, .services, .about-us {
+  padding: 3rem 1rem 2.5rem;
+}
+
+.intro h2,
+.services h2,
+.about-us h2 {
+  color: var(--brand);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  text-align: center;
+}
+
+h2, h3 {
+  color: var(--brand);
+}
 
 /* --- Cards / Grids --- */
 .services { background-color: var(--bg); }
+
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
+
 .service-card {
   background-color: var(--paper);
   border-radius: var(--radius);
@@ -152,9 +205,24 @@ h2, h3 { color: var(--brand); }
   box-shadow: var(--shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.service-card:hover { transform: translateY(-4px); }
-.service-card img { width: 100%; height: 180px; object-fit: cover; }
-.service-card h3 { margin: 1rem 0; font-weight: 400; color: var(--brand); font-size: 1.2rem; text-align: center; }
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.service-card h3 {
+  margin: 1rem 0;
+  font-weight: 400;
+  color: var(--brand);
+  font-size: 1.2rem;
+  text-align: center;
+}
 
 /* --- Footer --- */
 .site-footer {
@@ -164,7 +232,11 @@ h2, h3 { color: var(--brand); }
   color: var(--muted);
   font-size: 0.95rem;
 }
-.footer-logo { height: 40px; margin-bottom: 0.75rem; }
+
+.footer-logo {
+  height: 40px;
+  margin-bottom: 0.75rem;
+}
 
 /* --- Global links & buttons --- */
 button {
@@ -177,9 +249,19 @@ button {
   cursor: pointer;
   transition: background 0.25s ease;
 }
-button:hover { background-color: var(--brand-dark); }
-a { color: var(--brand); text-decoration: none; }
-a:hover { text-decoration: underline; }
+
+button:hover {
+  background-color: var(--brand-dark);
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 /* --- Divider --- */
 .hero-divider {
@@ -190,7 +272,9 @@ a:hover { text-decoration: underline; }
 }
 
 /* --- Forms --- */
-input[type="text"], input[type="email"], textarea {
+input[type="text"],
+input[type="email"],
+textarea {
   width: 100%;
   padding: 0.8rem;
   margin-top: 0.25rem;
@@ -201,7 +285,12 @@ input[type="text"], input[type="email"], textarea {
   font-size: 1rem;
   background-color: #fff;
 }
-label { font-weight: 500; color: var(--ink); display: block; }
+
+label {
+  font-weight: 500;
+  color: var(--ink);
+  display: block;
+}
 
 /* --- Accessibility: focus styles --- */
 :focus-visible {
@@ -211,7 +300,9 @@ label { font-weight: 500; color: var(--ink); display: block; }
 }
 
 /* --- Responsive Enhancements --- */
-@media (max-width: 1024px) { .container { width: 94%; } }
+@media (max-width: 1024px) {
+  .container { width: 94%; }
+}
 
 @media (max-width: 768px) {
   body { font-size: clamp(15px, 4.2vw, 17px); }
@@ -221,27 +312,6 @@ label { font-weight: 500; color: var(--ink); display: block; }
   .hero img { margin-top: 0.5rem; }
   .service-grid { grid-template-columns: 1fr; }
   .service-card img { height: auto; }
-  .menu-toggle { display: block; }
-  .main-nav {
-    position: fixed;
-    left: 0; right: 0;
-    top: calc(var(--header-pad-y) * 2 + 52px);
-    background-color: var(--paper);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.25rem;
-    padding: 0.75rem 0.75rem 1rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-    border-bottom-left-radius: 14px;
-    border-bottom-right-radius: 14px;
-    transform-origin: top center;
-    transform: translateY(-10px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-  body.menu-open .main-nav { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .main-nav a { padding: 0.8rem 0.9rem; border-radius: 8px; }
 }
 
 @media (max-width: 480px) {
@@ -250,88 +320,4 @@ label { font-weight: 500; color: var(--ink); display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
-}
-
-
-
-/* Hausärztliche Versorgung – Layout-Ergänzungen */
-.lead { font-size: 1.125rem; line-height: 1.6; margin: 0 0 1rem; }
-.section { margin: 1.25rem 0 1.75rem; }
-.feature-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1rem; }
-.feature { background: var(--paper, #F6F3EC); padding: 1rem; border-radius: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-.callout { background: #fff; border: 1px solid rgba(0,0,0,.08); padding: 1rem; border-radius: 14px; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
-.callout .button { padding: .55rem 1rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.1); text-decoration: none; font-weight: 600; }
-.callout .muted { opacity: .8; }
-.checklist { padding-left: 1.2rem; }
-.checklist li { margin: .35rem 0; }
-.faq details { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: .75rem 1rem; margin: .5rem 0; }
-.faq summary { cursor: pointer; font-weight: 600; }
-
-
-.numbered { counter-reset: it; padding-left: 1.2rem; }
-.numbered > li { margin:.35rem 0; }
-
-
-
-/* Inhaltsverzeichnis für Hausarzt-Seite */
-.page-toc { background: #fff; border:1px solid rgba(0,0,0,.08); padding:1rem; border-radius:12px; margin:1rem 0 2rem; }
-.page-toc strong { display:block; margin-bottom: .5rem; }
-.page-toc ul { list-style: none; margin:0; padding:0; display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:.25rem .75rem; }
-.page-toc li { margin:0; }
-.page-toc a { text-decoration:none; color: var(--brand, #1F4396); font-size:.95rem; }
-.page-toc a:hover { text-decoration:underline; }
-
-.page-toc a.active { font-weight: 700; color: var(--ink,#3A2C1E); }
-
-
-
-.back-to-top { margin: .5rem 0 1.25rem; font-size: .9rem; }
-.back-to-top a { text-decoration: none; opacity: .8; }
-.back-to-top a:hover { text-decoration: underline; opacity: 1; }
-
-
-
-
-
-/* Sticky-TOC am Desktop-Rand */
-@media (min-width: 1200px) {
-  .page-toc.page-toc--sticky {
-    position: sticky;
-    top: 110px;
-    float: right;
-    width: 280px;
-    z-index: 10;
-    max-height: calc(100vh - 140px);
-    overflow: auto;
-    margin-left: 1.25rem;
-  }
-  /* Platz für die Sidebar schaffen */
-  
-}
-
-
-
-/* Zwei-Spalten-Layout für Seiten mit linkem TOC */
-@media (min-width: 1200px) {
-  main .container.has-toc-left {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 2rem;
-    align-items: start;
-  }
-  .page-toc.page-toc--left {
-    position: sticky;
-    top: 110px;
-    max-height: calc(100vh - 140px);
-    overflow: auto;
-  }
-  /* Alle anderen Elemente (außer TOC) in Spalte 2 */
-  .container.has-toc-left > :not(.page-toc) {
-    grid-column: 2;
-  }
-}
-/* Mobile/Tablet: TOC normal im Fluss über dem Inhalt */
-@media (max-width: 1199px) {
-  .page-toc.page-toc--left { position: static; max-height: none; overflow: visible; }
-  main .container.has-toc-left { display: block; }
 }
