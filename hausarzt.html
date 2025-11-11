@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <style>
     /* zentrierte Überschrift */
@@ -37,7 +37,7 @@
     .intro-section img {
       width: 100%;
       height: auto;
-      border-radius: 16px;
+      border-radius: 0px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -54,7 +54,11 @@
 
     /* Info-Kästchen */
     .info-box {
+<<<<<<< Updated upstream
       background-color: #B3A69C;
+=======
+      background-color: #E0C4AF;
+>>>>>>> Stashed changes
       border-radius: var(--radius);
       padding: 1.25rem;
       box-shadow: var(--shadow-sm);
@@ -93,13 +97,14 @@
 <body>
 <header class="site-header">
   <div class="container header-flex">
-    <div class="logo-block">
-      <h1 class="logo">WEIDENBORNpraxis</h1>
-      <p class="subtitle">Dr. Meissner &amp; Dr. Weck</p>
-    </div>
+   <a href="index.html" class="logo-block" style="text-decoration:none; color:inherit;">
+ <h1 class="logo">
+  <span class="logo-bold">WEIDENBORN</span><span class="logo-light">praxis</span>
+ </h1>
+  <p class="subtitle">Dr. Meissner &amp; Dr. Weck</p>
+</a>
     <button class="menu-toggle" aria-controls="hauptnav" aria-expanded="false" aria-label="Hauptmenü öffnen">☰</button>
     <nav id="hauptnav" class="main-nav" aria-label="Hauptnavigation">
-      <a href="index.html">Startseite</a>
       <a href="kontakt.html">Kontakt</a>
       <a href="terminbuchung.html">Online-Termin</a>
       <a href="ueber-uns.html">Über uns</a>
